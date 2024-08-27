@@ -1,13 +1,10 @@
 import { signal, WritableSignal } from '@angular/core';
 
-
 export class CoreState2Service<T> {
 
-  private currentState: WritableSignal<T | undefined> = signal<T | undefined>(undefined);
+  private currentState: WritableSignal<T> = signal<T>({} as T);
 
-  constructor() { }
-
-  get(): T | undefined {
+  get(): T {
     return this.currentState();
   }
 

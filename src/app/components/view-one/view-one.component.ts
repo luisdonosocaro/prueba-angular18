@@ -1,4 +1,4 @@
-import { Component, inject, Injector, OnInit } from '@angular/core';
+import { Component, inject, Injector, OnInit, signal, WritableSignal } from '@angular/core';
 import { ClientStateService } from '../../state/client/client-state.service';
 import { Client } from '../../state/client/client.interface';
 
@@ -11,21 +11,22 @@ import { Client } from '../../state/client/client.interface';
 })
 export class ViewOneComponent implements OnInit {
 
-  public clientData: Client | undefined = undefined;
+  public clientData: WritableSignal<Client> = signal({} as Client);
 
   constructor(
     private clientState: ClientStateService
   ){
-    this.clientState.set({
+/*     this.clientData.set({
       fullName: "LuisDC",
       age: 40,
       email: "correo@prueba.cl"
-    })
+    }) 
+    this.clientState.set(this.clientData())*/
+    this.clientData.set(this.clientState.get());
   }
 
   ngOnInit() {
 
-    this.clientData = this.clientState.get();
   }
 
 
